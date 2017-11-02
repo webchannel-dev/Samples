@@ -1,0 +1,18 @@
+// API GET Method With JSON Payload
+
+var encodedQueryString = encodeURIComponent(JSON.stringify(
+
+  {
+    "gameImplementationTypes": "flash_optional",
+    "filter": [{
+      "filterAttribute": "unavailable_segments",
+      "filterValue": "us",
+      "isInclude": true,
+      "isSetProperty": true
+    }]
+  }
+
+
+))
+
+console.log('https://www.sampleDomain.com/9?q=' + encodedQueryString)
