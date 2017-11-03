@@ -1,18 +1,47 @@
-// API GET Method With JSON Payload
+<!DOCTYPE html>
+<html lang="en">
 
-var encodedQueryString = encodeURIComponent(JSON.stringify(
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mock Casino Frontend</title>
+    <script>
+        function httpGetAsync(theUrl, callback) {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                    callback(xmlHttp.responseText);
+            }
+            xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+            xmlHttp.send(null);
+        }
 
-  {
-    "gameImplementationTypes": "flash_optional",
-    "filter": [{
-      "filterAttribute": "unavailable_segments",
-      "filterValue": "us",
-      "isInclude": true,
-      "isSetProperty": true
-    }]
-  }
+        function populateGameDataService(data) {
+            document.getElementById("json").innerHTML = JSON.stringify(JSON.parse(data), undefined, 2);
+        }
 
+        const str = {
+            "gameImplementationTypes": "flash",
+            "filter": [{
+                "filterAttribute": "segments",
+                "filterValue": "US",
+                "isInclude": true,
+                "isSetProperty": true
+            }]
+        }
 
-))
+        const APIURL = 'https://ymvhw.execute-api.eu-central-1.amazonaws.com/2?q='
 
-console.log('https://www.sampleDomain.com/9?q=' + encodedQueryString)
+        const url = APIURL + encodeURIComponent(JSON.stringify(str));
+
+        httpGetAsync(url, populateGameDataService)
+
+    </script>
+</head>
+
+<body>
+    <pre id="json"></pre>
+</body>
+
+</html>
